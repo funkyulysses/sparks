@@ -288,6 +288,15 @@
 
   const composer = $("#composer"), search = $("#search"), saveBtn = $("#saveBtn");
   const list = $("#list"), chips = $("#chips"), count = $("#count"), ctx = $("#ctx");
+
+  // on touch devices there's no comfortable Shift+Enter, so let Enter make a
+  // new line like any normal text field — the Capture button is the "send"
+  const isTouch = matchMedia("(pointer: coarse)").matches;
+  if(isTouch){
+    composer.placeholder = "Capture a thought… use #tags, **bold**, `code`, and links.  Tap Capture to save.";
+    const hint = document.querySelector(".hint");
+    if(hint) hint.innerHTML = "Return for a new line · tap <b>Capture</b> to save";
+  }
   const DEFAULT_PH = composer.placeholder;
 
   // grow the composer with its content, up to a cap, instead of scrolling inside a tiny box
@@ -653,7 +662,7 @@
       if(e.key==="Escape"){ e.preventDefault(); acHide(); return; }
       if(e.key==="Enter" && !e.shiftKey && ac.navigated){ e.preventDefault(); acComplete(ac.items[ac.index]); return; }
     }
-    if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); capture(); }
+    if(e.key==="Enter" && !e.shiftKey && !isTouch){ e.preventDefault(); capture(); }
     else if(e.key==="Escape" && mode.type!=="new"){ e.preventDefault(); clearMode(); }
   });
   search.addEventListener("input", draw);
@@ -730,6 +739,13 @@
   draw();
   checkBackup();
   composer.focus();
+
+  // offline reliability: cache this page so it opens even with no connection.
+  // service workers require http(s), so this is a silent no-op for a local
+  // file:// copy (like on the Mac) and only takes effect once actually hosted.
+  if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  }
 })();
 </script>
 </body>
