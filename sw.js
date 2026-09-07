@@ -1,6 +1,6 @@
 // Spark offline cache — keeps the app opening even with no connection.
 // Bump this string whenever spark.html changes, so old cached copies get replaced.
-const CACHE = "spark-v5";
+const CACHE = "spark-v6";
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
