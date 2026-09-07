@@ -57,17 +57,9 @@
   .iconbtn svg{width:19px;height:19px;display:block}
   .iconbtn:hover{color:var(--ink); background:var(--fill)}
   .iconbtn:active{background:color-mix(in srgb,var(--muted) 26%,transparent)}
-  .accent-picker{position:relative; display:inline-flex}
-  .accent-dot{width:15px; height:15px; border-radius:50%; background:var(--accent);
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,.16)}
-  .accent-menu{position:absolute; top:calc(100% + 8px); right:0; z-index:30;
-    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;
-    box-shadow:0 10px 34px rgba(0,0,0,.2); display:grid; grid-template-columns:repeat(4,26px); gap:12px;
-    animation:pop .16s var(--ease)}
-  .accent-menu[hidden]{display:none}
-  .swatch{width:26px; height:26px; border-radius:50%; border:0; padding:0; cursor:pointer;
+  .swatch{width:30px; height:30px; border-radius:50%; border:0; padding:0; cursor:pointer;
     box-shadow:inset 0 0 0 1px rgba(0,0,0,.16); transition:transform .12s var(--ease)}
-  .swatch:hover{transform:scale(1.14)}
+  .swatch:hover{transform:scale(1.1)}
   .swatch[aria-checked="true"]{box-shadow:inset 0 0 0 1px rgba(0,0,0,.16),0 0 0 2px var(--panel),0 0 0 4px color-mix(in srgb,var(--ink) 42%,transparent)}
   #sparkleLayer{position:fixed; top:0; right:0; width:240px; height:240px; pointer-events:none; z-index:60; overflow:hidden}
   .spark-p{position:absolute; display:block; will-change:transform,opacity;
@@ -93,6 +85,49 @@
   .search input:focus{box-shadow:0 0 0 3.5px color-mix(in srgb,var(--accent) 30%,transparent)}
   .search .mag{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--muted); display:flex; transition:color .18s var(--ease)}
   .search:focus-within .mag{color:var(--accent)}
+  /* settings sheet */
+  .settings-wrap{position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:20px; pointer-events:none}
+  .settings-wrap:not([hidden]){pointer-events:auto}
+  .settings-wrap[hidden]{display:none}
+  .settings-sheet{
+    width:min(420px,100%); max-height:min(640px,84vh); overflow-y:auto;
+    background:var(--panel); border-radius:20px; box-shadow:0 24px 60px rgba(0,0,0,.28);
+    border:1px solid var(--line); animation:pop .2s var(--ease);
+  }
+  .settings-head{position:sticky; top:0; z-index:1; display:flex; align-items:center; justify-content:space-between;
+    padding:16px 8px 14px 20px; background:var(--panel); border-bottom:1px solid var(--line)}
+  .settings-head h2{margin:0; font-size:17px; font-weight:700}
+  .settings-body{padding:18px 18px 26px}
+  .settings-group{margin-bottom:26px}
+  .settings-group:last-child{margin-bottom:4px}
+  .settings-title{font-size:12.5px; font-weight:600; color:var(--muted); text-transform:uppercase;
+    letter-spacing:.03em; margin:0 4px 8px}
+  .settings-card{background:var(--fill); border-radius:12px; overflow:hidden}
+  .settings-row{display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px 14px; font-size:15px; min-height:24px}
+  .settings-card .settings-row + .settings-row{border-top:1px solid var(--line)}
+  button.settings-row{width:100%; border:0; background:transparent; color:var(--ink); text-align:left;
+    cursor:pointer; font:inherit; transition:background .12s var(--ease)}
+  button.settings-row:hover{background:color-mix(in srgb,var(--fill) 60%,var(--muted))}
+  button.settings-row:active{background:color-mix(in srgb,var(--fill) 40%,var(--muted))}
+  .settings-row .chev{color:var(--muted); flex:none; display:flex}
+  .accent-grid{display:flex; flex-wrap:wrap; gap:14px; padding:14px}
+  .about-text{color:var(--ink); font-size:14px; line-height:1.55; margin:0 4px 14px}
+  .about-text b{font-weight:600}
+  .shortcut-list{background:var(--fill); border-radius:12px; padding:4px 14px}
+  .shortcut-row{display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:9px 0; font-size:13.5px; color:var(--ink)}
+  .shortcut-row + .shortcut-row{border-top:1px solid var(--line)}
+  .shortcut-row span:last-child{color:var(--muted); text-align:right}
+  .shortcut-list kbd{background:var(--panel)}
+  .switch{position:relative; display:inline-flex; width:46px; height:28px; flex:none; cursor:pointer}
+  .switch input{position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer}
+  .switch-track{position:absolute; inset:0; background:var(--muted); opacity:.3; border-radius:999px;
+    transition:background .18s var(--ease), opacity .18s var(--ease)}
+  .switch-track::before{content:""; position:absolute; left:2px; top:2px; width:24px; height:24px;
+    background:#fff; border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,.3); transition:transform .18s var(--spring)}
+  .switch input:checked + .switch-track{background:var(--accent); opacity:1}
+  .switch input:checked + .switch-track::before{transform:translateX(18px)}
   /* floating capture bar — pill that morphs into the compose sheet */
   .scrim{
     position:fixed; inset:0; background:rgba(0,0,0,0); pointer-events:none; z-index:35;
@@ -210,9 +245,6 @@
   .empty{text-align:center; color:var(--muted); padding:60px 20px}
   .empty .big{margin-bottom:10px; display:flex; justify-content:center}
   .empty .big svg{width:42px; height:42px; opacity:.85}
-  footer{position:fixed; bottom:0; left:0; right:0; text-align:center;
-    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
-    color:var(--muted); font-size:12px; background:linear-gradient(transparent,var(--bg) 45%)}
   kbd{background:var(--fill); border:0; border-radius:5px; padding:1.5px 6px; font-size:11.5px; font-family:inherit; color:var(--muted)}
   .toast{position:fixed; left:50%; bottom:112px; transform:translateX(-50%) translateY(20px); z-index:70;
     display:flex; align-items:center; gap:14px;
@@ -234,22 +266,15 @@
         <path class="s2" d="M25.5 18.5c.25 2.9 1.35 4 4.25 4.25-2.9.25-4 1.35-4.25 4.25-.25-2.9-1.35-4-4.25-4.25 2.9-.25 4-1.35 4.25-4.25Z"/>
       </svg>Spark</div>
     <div class="spacer"></div>
-    <button class="iconbtn" id="exportBtn" title="Export notes to a file" aria-label="Export notes">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11.5v6A1.5 1.5 0 0 0 7.5 19h9a1.5 1.5 0 0 0 1.5-1.5v-6"/><path d="M12 15V4"/><path d="M8.5 7 12 3.5 15.5 7"/></svg></button>
-    <button class="iconbtn" id="importBtn" title="Import notes from a file" aria-label="Import notes">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11.5v6A1.5 1.5 0 0 0 7.5 19h9a1.5 1.5 0 0 0 1.5-1.5v-6"/><path d="M12 3.5V14.5"/><path d="M8.5 11 12 14.5 15.5 11"/></svg></button>
-    <div class="accent-picker">
-      <button class="iconbtn" id="accentBtn" title="Accent color" aria-label="Choose accent color" aria-haspopup="true" aria-expanded="false"><span class="accent-dot"></span></button>
-      <div class="accent-menu" id="accentMenu" role="menu" hidden></div>
-    </div>
-    <button class="iconbtn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle appearance">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.4"/><path d="M12 3.6a8.4 8.4 0 0 0 0 16.8z" fill="currentColor" stroke="none"/></svg></button>
+    <button class="iconbtn" id="settingsBtn" title="Settings" aria-label="Settings" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="M19.4 13.5a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V19.5a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H4.5a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H10a1.65 1.65 0 0 0 1-1.51V4.5a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V10a1.65 1.65 0 0 0 1.51 1h.09a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+    </button>
     <input type="file" id="importFile" accept="application/json" hidden>
   </header>
 
   <div class="search">
     <span class="mag"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><line x1="15.8" y1="15.8" x2="20.4" y2="20.4"/></svg></span>
-    <input id="search" type="text" placeholder="Search everything…   (press / to jump here)" autocomplete="off">
+    <input id="search" type="text" placeholder="Search" autocomplete="off">
   </div>
 
   <div class="backup-bar" id="backupBar" hidden>
@@ -285,7 +310,66 @@
 
 <div id="sparkleLayer" aria-hidden="true"></div>
 <div class="toast" id="toast"></div>
-<footer>Everything is saved on <b>this device only</b>, in your browser. <kbd>/</kbd> search · <kbd>n</kbd> new · <kbd>?</kbd> shortcuts</footer>
+
+<div class="scrim" id="settingsScrim"></div>
+<div class="settings-wrap" id="settingsWrap" hidden>
+  <div class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-head">
+      <h2 id="settingsTitle">Settings</h2>
+      <button class="iconbtn" id="settingsClose" aria-label="Close settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="settings-body">
+      <section class="settings-group">
+        <div class="settings-title">Appearance</div>
+        <div class="settings-card">
+          <div class="settings-row">
+            <span>Dark Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="switch-track"></span>
+            </label>
+          </div>
+        </div>
+        <div class="settings-title" style="margin-top:16px">Accent Color</div>
+        <div class="settings-card accent-grid" id="accentGrid"></div>
+      </section>
+
+      <section class="settings-group">
+        <div class="settings-title">Data</div>
+        <div class="settings-card">
+          <button class="settings-row" id="exportRow" type="button">
+            <span>Export Notes</span>
+            <span class="chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+          <button class="settings-row" id="importRow" type="button">
+            <span>Import Notes</span>
+            <span class="chev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+        </div>
+      </section>
+
+      <section class="settings-group" id="settingsInfo">
+        <div class="settings-title">About Spark</div>
+        <p class="about-text">Spark is a quick-capture journal that lives entirely in
+          this browser. Notes, tags, and pins are stored only in <b>this device's
+          local storage</b> — nothing is sent anywhere, and there's no account.
+          Use Export regularly to keep a backup file.</p>
+        <p class="about-text">Type <b>#tag</b> to label a note, <b>**bold**</b> for
+          emphasis, and <b>`code`</b> for a code span — links are detected
+          automatically. Reply to a note to start a thread.</p>
+        <div class="shortcut-list">
+          <div class="shortcut-row"><span>Focus search</span><span><kbd>/</kbd></span></div>
+          <div class="shortcut-row"><span>New note</span><span><kbd>n</kbd></span></div>
+          <div class="shortcut-row"><span>Save note</span><span><kbd>Enter</kbd></span></div>
+          <div class="shortcut-row"><span>New line</span><span><kbd>Shift</kbd>+<kbd>Enter</kbd></span></div>
+          <div class="shortcut-row"><span>Close / cancel</span><span><kbd>Esc</kbd></span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -419,7 +503,7 @@
     green:   {name:"Green",    l:"#34c759", lp:"#289a45", d:"#30d158", dp:"#4ce06f"},
     graphite:{name:"Graphite", l:"#8a8a8e", lp:"#6d6d70", d:"#98989f", dp:"#b4b4ba"}
   };
-  const themeBtn = $("#themeBtn"), accentBtn = $("#accentBtn"), accentMenu = $("#accentMenu");
+  const accentGrid = $("#accentGrid"), darkModeToggle = $("#darkModeToggle");
 
   function applyAccent(){
     const key = localStorage.getItem(ACCENT) || "blue";
@@ -428,36 +512,48 @@
     const st = document.documentElement.style;
     st.setProperty("--accent", dark ? a.d : a.l);
     st.setProperty("--accent-press", dark ? a.dp : a.lp);
-    accentMenu.querySelectorAll(".swatch").forEach(s=>
+    accentGrid.querySelectorAll(".swatch").forEach(s=>
       s.setAttribute("aria-checked", s.dataset.accent === key ? "true" : "false"));
   }
   function setTheme(t){
     document.documentElement.dataset.theme = t;
     localStorage.setItem(THEME, t); applyAccent();
+    darkModeToggle.checked = (t === "dark");
   }
   const savedTheme = localStorage.getItem(THEME) || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.dataset.theme = savedTheme;
-  themeBtn.onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+  darkModeToggle.checked = savedTheme === "dark";
+  darkModeToggle.onchange = () => setTheme(darkModeToggle.checked ? "dark" : "light");
 
   // accent swatches
   Object.keys(ACCENTS).forEach(key => {
     const a = ACCENTS[key];
     const b = document.createElement("button");
     b.className = "swatch"; b.type = "button"; b.dataset.accent = key;
-    b.setAttribute("role","menuitemradio"); b.setAttribute("aria-checked","false");
+    b.setAttribute("role","radio"); b.setAttribute("aria-checked","false");
     b.title = a.name; b.setAttribute("aria-label", a.name);
     b.style.background = a.l;
-    b.onclick = () => { localStorage.setItem(ACCENT, key); applyAccent(); closeAccent(); };
-    accentMenu.appendChild(b);
+    b.onclick = () => { localStorage.setItem(ACCENT, key); applyAccent(); };
+    accentGrid.appendChild(b);
   });
-  const openAccent = () => { accentMenu.hidden = false; accentBtn.setAttribute("aria-expanded","true"); };
-  const closeAccent = () => { accentMenu.hidden = true; accentBtn.setAttribute("aria-expanded","false"); };
-  accentBtn.onclick = e => { e.stopPropagation(); accentMenu.hidden ? openAccent() : closeAccent(); };
-  document.addEventListener("click", e => {
-    if(!accentMenu.hidden && !accentMenu.contains(e.target) && !accentBtn.contains(e.target)) closeAccent();
-  });
-  document.addEventListener("keydown", e => { if(e.key === "Escape" && !accentMenu.hidden) closeAccent(); });
   applyAccent();
+
+  // ---- settings sheet ----
+  const settingsBtn = $("#settingsBtn"), settingsWrap = $("#settingsWrap"),
+        settingsScrim = $("#settingsScrim"), settingsClose = $("#settingsClose"),
+        settingsInfo = $("#settingsInfo");
+  function openSettings(focusInfo){
+    settingsWrap.hidden = false;
+    settingsScrim.classList.add("on");
+    if(focusInfo) requestAnimationFrame(()=> settingsInfo.scrollIntoView({block:"start"}));
+  }
+  function closeSettings(){
+    settingsWrap.hidden = true;
+    settingsScrim.classList.remove("on");
+  }
+  settingsBtn.onclick = () => openSettings(false);
+  settingsClose.onclick = closeSettings;
+  settingsScrim.onclick = closeSettings;
 
   // ---- helpers ----
   const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -732,7 +828,7 @@
     toast("Exported "+notes.length+" notes");
     checkBackup();
   }
-  $("#exportBtn").onclick = doExport;
+  $("#exportRow").onclick = doExport;
 
   // ---- backup nudge ----
   const backupBar = $("#backupBar");
@@ -757,7 +853,7 @@
     try{ localStorage.setItem(BKSNZ, Date.now() + 7*864e5); }catch(e){}
     backupBar.hidden = true;
   };
-  $("#importBtn").onclick = ()=> $("#importFile").click();
+  $("#importRow").onclick = ()=> $("#importFile").click();
   $("#importFile").onchange = e=>{
     const f = e.target.files[0]; if(!f) return;
     const r = new FileReader();
@@ -782,11 +878,10 @@
   // ---- global shortcuts ----
   document.addEventListener("keydown", e=>{
     const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
-    if(e.key==="/" && !typing){ e.preventDefault(); search.focus(); }
+    if(e.key==="Escape" && !settingsWrap.hidden){ e.preventDefault(); closeSettings(); }
+    else if(e.key==="/" && !typing){ e.preventDefault(); search.focus(); }
     else if(e.key==="n" && !typing){ e.preventDefault(); expandComposer(); }
-    else if(e.key==="?" && !typing){ e.preventDefault();
-      alert("Spark shortcuts\n\n/  focus search\nn  new note\nEnter  save (in composer)\nShift+Enter  new line\nEsc  clear search / cancel reply-edit\n\nType #tag for suggestions — ↑/↓ then Tab to complete.\nDeleted a note by mistake? Tap Undo right after.\n\nReply to your own note to build a thread.\n#tags in a note are clickable.\nExport (⤓) makes a backup file. Import (⤒) merges one back in.");
-    }
+    else if(e.key==="?" && !typing){ e.preventDefault(); openSettings(true); }
   });
 
   draw();
