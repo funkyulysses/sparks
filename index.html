@@ -403,15 +403,48 @@
       setTimeout(() => p.remove(), 1550);
     }
   }
-  // capture sound — a plain <audio> element (not the Web Audio API) so iOS
-  // silences it automatically when the phone's mute switch is on, same as
-  // any other web media; nothing here needs to check that state itself.
-  const captureSound = $("#captureSound");
-  function playCaptureSound(){
-    if(!captureSound) return;
-    try{ captureSound.currentTime = 0; captureSound.play().catch(()=>{}); }
-    catch(e){}
+  // capture sound — played through the Web Audio API rather than the
+  // <audio> element's own .play(). On iOS, an <audio>/<video> element that
+  // actually starts playing gets treated as real media: it shows up as a
+  // Now Playing card (Dynamic Island / Lock Screen) and — because real
+  // media is allowed to override it — ignores the silent switch. A short
+  // clip played as a decoded AudioBuffer reads as a UI sound effect
+  // instead: no Now Playing card, and it's silenced by the switch like any
+  // other app's sound effects. The <audio> tag stays in the markup purely
+  // as a convenient place to hold the embedded data; it's never played.
+  const captureSoundEl = $("#captureSound");
+  let audioCtx = null;
+  let captureBufferPromise = null;
+  function getAudioCtx(){
+    if(!audioCtx){
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(Ctx){ try{ audioCtx = new Ctx(); }catch(e){} }
+    }
+    return audioCtx;
   }
+  function loadCaptureBuffer(ctx){
+    if(!captureBufferPromise){
+      captureBufferPromise = (captureSoundEl && captureSoundEl.src)
+        ? fetch(captureSoundEl.src).then(r=>r.arrayBuffer()).then(buf=>ctx.decodeAudioData(buf)).catch(()=>null)
+        : Promise.resolve(null);
+    }
+    return captureBufferPromise;
+  }
+  function playCaptureSound(){
+    const ctx = getAudioCtx();
+    if(!ctx) return;
+    if(ctx.state === "suspended") ctx.resume().catch(()=>{});
+    loadCaptureBuffer(ctx).then(buffer=>{
+      if(!buffer) return;
+      try{
+        const src = ctx.createBufferSource();
+        src.buffer = buffer;
+        src.connect(ctx.destination);
+        src.start(0);
+      }catch(e){}
+    });
+  }
+  { const c = getAudioCtx(); if(c) loadCaptureBuffer(c); }   // start decoding now, ready by first capture
 
   let notes = load();
   let activeTag = null;
