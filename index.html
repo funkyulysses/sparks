@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Spark — quick capture</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23f5a623' d='M16 2c.5 6.8 3.2 9.5 10 10-6.8.5-9.5 3.2-10 10-.5-6.8-3.2-9.5-10-10 6.8-.5 9.5-3.2 10-10Z'/%3E%3Cpath fill='%23ffcf3f' d='M25.5 18.5c.25 2.9 1.35 4 4.25 4.25-2.9.25-4 1.35-4.25 4.25-.25-2.9-1.35-4-4.25-4.25 2.9-.25 4-1.35 4.25-4.25Z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Cpath fill='%23f5a623' d='M16 2c.5 6.8 3.2 9.5 10 10-6.8.5-9.5 3.2-10 10-.5-6.8-3.2-9.5-10-10 6.8-.5 9.5-3.2 10-10Z'/%3E%3Cpath fill='%23ffcf3f' d='M25.5 18.5c.25 2.9 1.35 4 4.25 4.25-2.9.25-4 1.35-4.25 4.25-.25-2.9-1.35-4-4.25-4.25 2.9-.25 4-1.35 4.25-4.25Z'/%3E%3C/svg%3E">
 <!-- dedicated raster icon for iOS home screen (Safari can't use the SVG favicon for this) -->
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
 
 <!-- iPhone "Add to Home Screen" app behaviour -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,6 +23,7 @@
     --shadow:0 1px 2px rgba(0,0,0,.05);
     --radius:12px;
     --ease:cubic-bezier(.22,.61,.36,1);
+    --spring:cubic-bezier(.34,1.56,.64,1);
   }
   [data-theme="dark"]{
     --bg:#000000; --panel:#1c1c1e; --fill:#2c2c2e; --ink:#ffffff; --muted:#98989f;
@@ -92,18 +93,46 @@
   .search input:focus{box-shadow:0 0 0 3.5px color-mix(in srgb,var(--accent) 30%,transparent)}
   .search .mag{position:absolute; left:13px; top:50%; transform:translateY(-50%); color:var(--muted); display:flex; transition:color .18s var(--ease)}
   .search:focus-within .mag{color:var(--accent)}
-  .composer{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); padding:14px 16px; margin-bottom:22px;
-    transition:border-color .2s var(--ease);
+  /* floating capture bar — pill that morphs into the compose sheet */
+  .scrim{
+    position:fixed; inset:0; background:rgba(0,0,0,0); pointer-events:none; z-index:35;
+    transition:background .3s var(--ease); -webkit-backdrop-filter:blur(0); backdrop-filter:blur(0);
   }
-  .composer:focus-within{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
-  .composer textarea{
+  .scrim.on{background:rgba(0,0,0,.28); pointer-events:auto; -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
+  .float-wrap{
+    position:fixed; left:0; right:0; bottom:calc(44px + env(safe-area-inset-bottom));
+    display:flex; justify-content:center; z-index:40; pointer-events:none;
+  }
+  .float-bar{
+    pointer-events:auto; width:min(340px,90vw); height:52px; padding:0 18px; border-radius:26px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);
+    -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%);
+    border:1px solid var(--line); box-shadow:0 10px 30px rgba(0,0,0,.18);
+    display:flex; align-items:center; cursor:pointer; overflow:hidden;
+    transition:width .4s var(--spring), height .4s var(--spring), border-radius .3s var(--ease),
+      padding .3s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease), border-color .2s var(--ease);
+  }
+  .float-bar.expanded{
+    width:min(600px,92vw); height:auto; min-height:150px; border-radius:22px; padding:14px 16px 12px;
+    flex-direction:column; align-items:stretch; cursor:default;
+    background:var(--panel); box-shadow:0 20px 50px rgba(0,0,0,.25);
+  }
+  .float-bar.expanded:focus-within{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+  .pill-face{display:flex; align-items:center; gap:10px; width:100%}
+  .pill-face svg{width:18px; height:18px; flex:none}
+  .pill-face span{color:var(--muted); font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .float-bar.expanded .pill-face{display:none}
+  .float-bar .ctx, .float-bar textarea, .float-bar .ac-menu, .float-bar .bar{display:none}
+  .float-bar.expanded .ctx:not([hidden]){display:flex}
+  .float-bar.expanded textarea{display:block}
+  .float-bar.expanded .ac-menu:not([hidden]){display:flex}
+  .float-bar.expanded .bar{display:flex}
+  .float-bar textarea{
     width:100%; border:0; outline:0; resize:none; background:transparent; color:var(--ink);
-    font-family:inherit; font-size:16px; line-height:1.5; min-height:52px; overflow-y:hidden; display:block;
+    font-family:inherit; font-size:16px; line-height:1.5; min-height:52px; overflow-y:hidden;
   }
-  .composer textarea::placeholder{color:var(--muted)}
-  .composer .bar{display:flex; align-items:center; gap:10px; margin-top:8px}
+  .float-bar textarea::placeholder{color:var(--muted)}
+  .float-bar .bar{align-items:center; gap:10px; margin-top:8px}
   .hint{color:var(--muted); font-size:12.5px}
   .btn{
     border:0; border-radius:9px; padding:8px 17px; font-weight:600; font-size:15px; cursor:pointer;
@@ -185,7 +214,7 @@
     padding:10px 10px calc(10px + env(safe-area-inset-bottom));
     color:var(--muted); font-size:12px; background:linear-gradient(transparent,var(--bg) 45%)}
   kbd{background:var(--fill); border:0; border-radius:5px; padding:1.5px 6px; font-size:11.5px; font-family:inherit; color:var(--muted)}
-  .toast{position:fixed; left:50%; bottom:56px; transform:translateX(-50%) translateY(20px);
+  .toast{position:fixed; left:50%; bottom:112px; transform:translateX(-50%) translateY(20px); z-index:70;
     display:flex; align-items:center; gap:14px;
     background:rgba(40,40,44,.92); color:#fff; padding:10px 18px; border-radius:12px; font-size:13.5px;
     -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px);
@@ -223,17 +252,6 @@
     <input id="search" type="text" placeholder="Search everything…   (press / to jump here)" autocomplete="off">
   </div>
 
-  <div class="composer">
-    <div class="ctx" id="ctx" hidden></div>
-    <textarea id="composer" placeholder="Capture a thought… use #tags, **bold**, `code`, and links.  Enter to save, Shift+Enter for a new line."></textarea>
-    <div class="ac-menu" id="acMenu" role="listbox" aria-label="Tag suggestions" hidden></div>
-    <div class="bar">
-      <span class="hint"><kbd>Enter</kbd> save · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline</span>
-      <div class="spacer" style="flex:1"></div>
-      <button class="btn" id="saveBtn" disabled>Capture</button>
-    </div>
-  </div>
-
   <div class="backup-bar" id="backupBar" hidden>
     <span class="bk-ic"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 19 6.3v5.2c0 4.2-2.9 7.4-7 8.5-4.1-1.1-7-4.3-7-8.5V6.3z"/><path d="M9 11.7 11.2 13.9 15 9.7"/></svg></span>
     <span class="bk-text"></span>
@@ -245,6 +263,24 @@
   <div class="chips" id="chips"></div>
   <div class="count" id="count"></div>
   <div id="list"></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="float-wrap">
+  <div class="float-bar" id="floatBar">
+    <div class="pill-face" id="pillFace">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#f5a623" d="M16 2c.5 6.8 3.2 9.5 10 10-6.8.5-9.5 3.2-10 10-.5-6.8-3.2-9.5-10-10 6.8-.5 9.5-3.2 10-10Z"/><path fill="#ffcf3f" d="M25.5 18.5c.25 2.9 1.35 4 4.25 4.25-2.9.25-4 1.35-4.25 4.25-.25-2.9-1.35-4-4.25-4.25 2.9-.25 4-1.35 4.25-4.25Z"/></svg>
+      <span>Capture a thought…</span>
+    </div>
+    <div class="ctx" id="ctx" hidden></div>
+    <textarea id="composer" placeholder="Capture a thought… use #tags, **bold**, `code`, and links.  Enter to save, Shift+Enter for a new line."></textarea>
+    <div class="ac-menu" id="acMenu" role="listbox" aria-label="Tag suggestions" hidden></div>
+    <div class="bar">
+      <span class="hint"><kbd>Enter</kbd> save · <kbd>Shift</kbd>+<kbd>Enter</kbd> newline</span>
+      <div class="spacer" style="flex:1"></div>
+      <button class="btn" id="saveBtn" disabled>Capture</button>
+    </div>
+  </div>
 </div>
 
 <div id="sparkleLayer" aria-hidden="true"></div>
@@ -315,6 +351,7 @@
   const snippet = s => { const t = s.replace(/\s+/g," ").trim(); return t.length>56 ? t.slice(0,56)+"…" : t; };
 
   function setMode(m){
+    expandComposer();
     mode = m;
     const n = notes.find(x=>x.id===m.id);
     if(m.type==="reply"){
@@ -337,7 +374,23 @@
     composer.value = ""; saveBtn.disabled = true;
     autosize();
     acHide();
+    collapseComposer();
   }
+
+  // floating capture bar: pill <-> compose sheet
+  const floatBar = $("#floatBar"), pillFace = $("#pillFace"), scrim = $("#scrim");
+  function expandComposer(){
+    floatBar.classList.add("expanded");
+    scrim.classList.add("on");
+    autosize();
+    composer.focus();
+  }
+  function collapseComposer(){
+    floatBar.classList.remove("expanded");
+    scrim.classList.remove("on");
+  }
+  pillFace.onclick = expandComposer;
+  scrim.onclick = clearMode;
 
   // ---- persistence ----
   function load(){
@@ -663,7 +716,7 @@
       if(e.key==="Enter" && !e.shiftKey && ac.navigated){ e.preventDefault(); acComplete(ac.items[ac.index]); return; }
     }
     if(e.key==="Enter" && !e.shiftKey && !isTouch){ e.preventDefault(); capture(); }
-    else if(e.key==="Escape" && mode.type!=="new"){ e.preventDefault(); clearMode(); }
+    else if(e.key==="Escape" && (mode.type!=="new" || floatBar.classList.contains("expanded"))){ e.preventDefault(); clearMode(); }
   });
   search.addEventListener("input", draw);
   search.addEventListener("keydown", e=>{ if(e.key==="Escape"){ search.value=""; activeTag=null; draw(); search.blur(); } });
@@ -730,7 +783,7 @@
   document.addEventListener("keydown", e=>{
     const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
     if(e.key==="/" && !typing){ e.preventDefault(); search.focus(); }
-    else if(e.key==="n" && !typing){ e.preventDefault(); composer.focus(); }
+    else if(e.key==="n" && !typing){ e.preventDefault(); expandComposer(); }
     else if(e.key==="?" && !typing){ e.preventDefault();
       alert("Spark shortcuts\n\n/  focus search\nn  new note\nEnter  save (in composer)\nShift+Enter  new line\nEsc  clear search / cancel reply-edit\n\nType #tag for suggestions — ↑/↓ then Tab to complete.\nDeleted a note by mistake? Tap Undo right after.\n\nReply to your own note to build a thread.\n#tags in a note are clickable.\nExport (⤓) makes a backup file. Import (⤒) merges one back in.");
     }
@@ -738,7 +791,6 @@
 
   draw();
   checkBackup();
-  composer.focus();
 
   // offline reliability: cache this page so it opens even with no connection.
   // service workers require http(s), so this is a silent no-op for a local
