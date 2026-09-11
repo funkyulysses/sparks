@@ -33,6 +33,25 @@
     --pin:color-mix(in srgb,var(--accent) 15%,transparent);
     --shadow:none;
   }
+  /* Frosted Glass — its own light/dark base (follows system preference,
+     independent of the Light/Dark choice) plus the extra tokens the glass
+     surfaces below are built from. */
+  [data-theme="glass"]{
+    --bg:#e8e8ee; --panel:#ffffff; --fill:#e9e9ee; --ink:#1c1c1e; --muted:#6b6b70;
+    --line:rgba(0,0,0,.08); --accent:#007aff; --accent-press:#0060df; --danger:#ff3b30;
+    --pin:color-mix(in srgb,var(--accent) 7%,transparent);
+    --shadow:0 1px 2px rgba(0,0,0,.05);
+    --glass-fill:rgba(255,255,255,.55); --glass-border:rgba(255,255,255,.55); --glass-tint:rgba(242,242,247,.20);
+  }
+  @media (prefers-color-scheme: dark){
+    [data-theme="glass"]{
+      --bg:#0d0d0f; --panel:#1c1c1e; --fill:#2c2c2e; --ink:#f2f2f5; --muted:#9a9aa2;
+      --line:rgba(255,255,255,.09); --accent:#0a84ff; --accent-press:#409cff; --danger:#ff453a;
+      --pin:color-mix(in srgb,var(--accent) 15%,transparent);
+      --shadow:none;
+      --glass-fill:rgba(38,38,44,.55); --glass-border:rgba(255,255,255,.12); --glass-tint:rgba(0,0,0,.28);
+    }
+  }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
@@ -130,6 +149,8 @@
     background:#fff; border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,.3); transition:transform .18s var(--spring)}
   .switch input:checked + .switch-track{background:var(--accent); opacity:1}
   .switch input:checked + .switch-track::before{transform:translateX(18px)}
+  .theme-check{color:var(--accent); display:flex; opacity:0; transition:opacity .12s var(--ease)}
+  .theme-row[aria-checked="true"] .theme-check{opacity:1}
   /* floating capture bar — pill that morphs into the compose sheet */
   .scrim{
     position:fixed; inset:0; background:rgba(0,0,0,0); pointer-events:none; z-index:35;
@@ -257,6 +278,60 @@
   .toast-act{border:0; background:transparent; color:color-mix(in srgb,var(--accent) 60%,#fff);
     font-weight:600; font-size:13.5px; cursor:pointer; padding:2px 0; white-space:nowrap}
   .toast-act:hover{text-decoration:underline}
+
+  /* ================= Frosted Glass theme =================
+     Ambient color behind a real blur, on the surfaces this design language
+     actually calls for: notes, chips, the search field, the floating
+     composer, and the settings sheet. Ported from the "Mango glass" system
+     explored for Floating Capture (option B) in spark-directions.html. */
+  [data-theme="glass"] body::before{
+    content:""; position:fixed; inset:-30px; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(circle at 16% 10%, #7dd3fc 0%, transparent 52%),
+      radial-gradient(circle at 86% 4%, #c4b5fd 0%, transparent 48%),
+      radial-gradient(circle at 14% 92%, #fbcfe8 0%, transparent 52%),
+      radial-gradient(circle at 90% 98%, #fde68a 0%, transparent 48%);
+    filter:blur(30px) saturate(160%);
+    opacity:.75;
+    animation:glassDrift 26s ease-in-out infinite alternate;
+  }
+  @keyframes glassDrift{ from{transform:translate(0,0) scale(1)} to{transform:translate(4%,-3%) scale(1.08)} }
+  @media (prefers-reduced-motion:reduce){ [data-theme="glass"] body::before{ animation:none } }
+  [data-theme="glass"] .chip{
+    background:var(--glass-fill);
+    -webkit-backdrop-filter:blur(14px) saturate(180%); backdrop-filter:blur(14px) saturate(180%);
+    border:1px solid var(--glass-border);
+  }
+  [data-theme="glass"] .search input{
+    background:var(--glass-fill);
+    -webkit-backdrop-filter:blur(14px) saturate(180%); backdrop-filter:blur(14px) saturate(180%);
+    border:1px solid var(--glass-border);
+  }
+  [data-theme="glass"] .note{
+    background:linear-gradient(var(--glass-tint),var(--glass-tint)), var(--glass-fill);
+    -webkit-backdrop-filter:blur(22px) saturate(180%); backdrop-filter:blur(22px) saturate(180%);
+    border:1px solid var(--glass-border); border-radius:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,.10);
+  }
+  [data-theme="glass"] .note.pinned{
+    background:linear-gradient(color-mix(in srgb,var(--accent) 10%,transparent),color-mix(in srgb,var(--accent) 10%,transparent)), var(--glass-fill);
+    border-color:color-mix(in srgb,var(--accent) 35%,var(--glass-border));
+  }
+  [data-theme="glass"] .float-bar{
+    background:linear-gradient(var(--glass-tint),var(--glass-tint)), var(--glass-fill);
+    border:1px solid var(--glass-border);
+    box-shadow:0 12px 30px rgba(0,0,0,.20);
+  }
+  [data-theme="glass"] .float-bar.expanded{
+    background:linear-gradient(var(--glass-tint),var(--glass-tint)), var(--glass-fill);
+    box-shadow:0 20px 50px rgba(0,0,0,.24);
+  }
+  [data-theme="glass"] .settings-sheet, [data-theme="glass"] .settings-card{
+    background:linear-gradient(var(--glass-tint),var(--glass-tint)), var(--glass-fill);
+    -webkit-backdrop-filter:blur(20px) saturate(180%); backdrop-filter:blur(20px) saturate(180%);
+    border:1px solid var(--glass-border);
+  }
+  [data-theme="glass"] .settings-head{ background:transparent; border-bottom-color:var(--glass-border) }
 </style>
 </head>
 <body>
@@ -326,14 +401,19 @@
     <div class="settings-body">
       <section class="settings-group">
         <div class="settings-title">Appearance</div>
-        <div class="settings-card">
-          <div class="settings-row">
-            <span>Dark Mode</span>
-            <label class="switch">
-              <input type="checkbox" id="darkModeToggle">
-              <span class="switch-track"></span>
-            </label>
-          </div>
+        <div class="settings-card" id="themeGroup" role="radiogroup" aria-label="Theme">
+          <button class="settings-row theme-row" type="button" role="radio" aria-checked="false" data-theme-choice="light">
+            <span>Light</span>
+            <span class="theme-check"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+          </button>
+          <button class="settings-row theme-row" type="button" role="radio" aria-checked="false" data-theme-choice="dark">
+            <span>Dark</span>
+            <span class="theme-check"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+          </button>
+          <button class="settings-row theme-row" type="button" role="radio" aria-checked="false" data-theme-choice="glass">
+            <span>Frosted Glass</span>
+            <span class="theme-check"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+          </button>
         </div>
         <div class="settings-title" style="margin-top:16px">Accent Color</div>
         <div class="settings-card accent-grid" id="accentGrid"></div>
@@ -548,12 +628,15 @@
     green:   {name:"Green",    l:"#34c759", lp:"#289a45", d:"#30d158", dp:"#4ce06f"},
     graphite:{name:"Graphite", l:"#8a8a8e", lp:"#6d6d70", d:"#98989f", dp:"#b4b4ba"}
   };
-  const accentGrid = $("#accentGrid"), darkModeToggle = $("#darkModeToggle");
+  const accentGrid = $("#accentGrid"), themeRows = document.querySelectorAll(".theme-row");
 
   function applyAccent(){
     const key = localStorage.getItem(ACCENT) || "blue";
     const a = ACCENTS[key] || ACCENTS.blue;
-    const dark = document.documentElement.dataset.theme === "dark";
+    const theme = document.documentElement.dataset.theme;
+    // Frosted Glass follows the system's own light/dark preference (like its
+    // CSS variable block does), rather than the separate Light/Dark choice.
+    const dark = theme === "dark" || (theme === "glass" && matchMedia("(prefers-color-scheme: dark)").matches);
     const st = document.documentElement.style;
     st.setProperty("--accent", dark ? a.d : a.l);
     st.setProperty("--accent-press", dark ? a.dp : a.lp);
@@ -563,12 +646,14 @@
   function setTheme(t){
     document.documentElement.dataset.theme = t;
     localStorage.setItem(THEME, t); applyAccent();
-    darkModeToggle.checked = (t === "dark");
+    themeRows.forEach(r => r.setAttribute("aria-checked", r.dataset.themeChoice === t ? "true" : "false"));
   }
   const savedTheme = localStorage.getItem(THEME) || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.dataset.theme = savedTheme;
-  darkModeToggle.checked = savedTheme === "dark";
-  darkModeToggle.onchange = () => setTheme(darkModeToggle.checked ? "dark" : "light");
+  themeRows.forEach(r => {
+    r.setAttribute("aria-checked", r.dataset.themeChoice === savedTheme ? "true" : "false");
+    r.onclick = () => setTheme(r.dataset.themeChoice);
+  });
 
   // accent swatches
   Object.keys(ACCENTS).forEach(key => {
